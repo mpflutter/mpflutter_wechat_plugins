@@ -1,0 +1,19 @@
+name: mpflutter_wechat_videoview
+description: "A new Flutter package project."
+version: 0.0.1
+
+environment:
+  sdk: '>=3.1.0 <4.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  mpflutter_core: any
+  mpflutter_wechat_api: any
+
+dependency_overrides:
+  mpflutter_core: 
+    path: /Users/saiakirahui/Documents/mpflutter/mpflutter 
+  mpflutter_wechat_api:
+    path: /Users/saiakirahui/Documents/mpflutter/mpflutter_wechat_api
