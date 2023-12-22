@@ -9,11 +9,5 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  mpflutter_core: any
-  mpflutter_wechat_api: any
-
-dependency_overrides:
-  mpflutter_core: 
-    path: /Users/saiakirahui/Documents/mpflutter/mpflutter 
-  mpflutter_wechat_api:
-    path: /Users/saiakirahui/Documents/mpflutter/mpflutter_wechat_api
+  mpflutter_core: ">=2.0.0-alpha.7"
+  mpflutter_wechat_api: ">=2.0.0-alpha.4"
