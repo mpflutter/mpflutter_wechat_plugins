@@ -4,7 +4,7 @@ import 'package:mpflutter_wechat_api/mpflutter_wechat_api.dart';
 import 'package:mpflutter_core/mpjs/mpjs.dart' as mpjs;
 
 class MPFlutter_Wechat_MapViewController
-    extends MPFlutter_Wechat_PlatformViewController {
+    extends MPFlutterPlatformViewController {
   MapContext? _mapContext;
 
   _createMapContext() {
@@ -28,14 +28,14 @@ class MPFlutter_Wechat_MapView extends StatelessWidget {
   final double scale;
   final double minScale;
   final double maxScale;
-  final List<Marker> markers;
-  final List<Cover> covers;
-  final List<Polyline> polyline;
-  final List<Circle> circles;
-  final List<Control> controls;
-  final List<Point> includePoints;
+  final List markers;
+  final List covers;
+  final List polyline;
+  final List circles;
+  final List controls;
+  final List includePoints;
   final bool showLocation;
-  final List<Polygon> polygons;
+  final List polygons;
   final String subkey;
   final int layerStyle;
   final double rotate;
@@ -67,9 +67,7 @@ class MPFlutter_Wechat_MapView extends StatelessWidget {
   final Function(mpjs.JSObject)? onAuthSuccess;
   final Function(mpjs.JSObject)? onInterpolatePoint;
   final Function(mpjs.JSObject)? onError;
-  
-  final Function(mpjs.JSObject)? onPlay;
-  
+
   MPFlutter_Wechat_MapView({
     this.controller,
     required this.longitude,

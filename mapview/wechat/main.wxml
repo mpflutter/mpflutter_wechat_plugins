@@ -31,6 +31,6 @@
             enable-poi="{{item.props.enablePOI}}"
             enable-building="{{item.props.enableBuilding}}"
             setting="{{item.props.setting}}" 
-            bindcastinginterrupt="onPVCB" bindtap="onPVCB" bindmarkertap="onPVCB" bindlabeltap="onPVCB" bindcontroltap="onPVCB" bindcallouttap="onPVCB" bindupdated="onPVCB" bindregionchange="onPVCB" bindpoitap="onPVCB" bindpolylinetap="onPVCB" bindabilitysuccess="onPVCB" bindabilityfailed="onPVCB" bindauthsuccess="onPVCB" bindinterpolatepoint="onPVCB" binderror="onPVCB"></video>
+            bindcastinginterrupt="onPVCB" bindtap="onPVCB" bindmarkertap="onPVCB" bindlabeltap="onPVCB" bindcontroltap="onPVCB" bindcallouttap="onPVCB" bindupdated="onPVCB" bindregionchange="onPVCB" bindpoitap="onPVCB" bindpolylinetap="onPVCB" bindabilitysuccess="onPVCB" bindabilityfailed="onPVCB" bindauthsuccess="onPVCB" bindinterpolatepoint="onPVCB" binderror="onPVCB"></map>
     </view>
 </block>
