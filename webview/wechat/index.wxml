@@ -1,0 +1,1 @@
+<web-view id="{{pvid}}" src="{{src}}" bindmessage="onwebviewmessage" bindload="onwebviewload" binderror="onwebviewerror"></web-view>
