@@ -1,5 +1,5 @@
 name: mpflutter_wechat_button
-description: "A new Flutter package project."
+description: "The button widget in wechat miniprogram"
 version: 0.0.1
 
 environment:
