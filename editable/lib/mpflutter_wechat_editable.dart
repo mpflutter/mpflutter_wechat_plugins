@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:mpflutter_core/mpflutter_core.dart';
 import 'package:mpflutter_core/mpjs/mpjs.dart' as mpjs;
+export './mpflutter_text_field.dart';
+export './mpflutter_text_form_field.dart';
 
 class MPFlutter_Wechat_EditableInput extends StatefulWidget {
+  static final bool runOnDevtools =
+      mpjs.context["platformViewManager"]['devtools'];
+
+  static bool shouldUseWechatComponent() {
+    return !(runOnDevtools || kIsMPFlutterDevmode || !kIsMPFlutter);
+  }
+
   final TextEditingController? controller;
+  final String? hintText;
   final FocusNode? focusNode;
   final TextStyle? style;
   final Color? cursorColor;
@@ -21,7 +31,9 @@ class MPFlutter_Wechat_EditableInput extends StatefulWidget {
   final ValueChanged<String>? onSubmitted;
 
   MPFlutter_Wechat_EditableInput({
+    Key? key,
     this.controller,
+    this.hintText,
     this.focusNode,
     this.style,
     this.cursorColor,
@@ -37,7 +49,7 @@ class MPFlutter_Wechat_EditableInput extends StatefulWidget {
     this.onChanged,
     this.onEditingComplete,
     this.onSubmitted,
-  });
+  }) : super(key: key);
 
   @override
   State<MPFlutter_Wechat_EditableInput> createState() =>
@@ -46,7 +58,6 @@ class MPFlutter_Wechat_EditableInput extends StatefulWidget {
 
 class _MPFlutter_Wechat_EditableInputState
     extends State<MPFlutter_Wechat_EditableInput> {
-  final bool runOnDevtools = mpjs.context["platformViewManager"]['devtools'];
   late TextEditingController controller;
   late FocusNode focusNode;
   bool _focused = false;
@@ -57,7 +68,7 @@ class _MPFlutter_Wechat_EditableInputState
     _focused = widget.autofocus;
     controller = widget.controller ?? TextEditingController(text: "");
     focusNode = widget.focusNode ?? FocusNode();
-    if (runOnDevtools || kIsMPFlutterDevmode || !kIsMPFlutter) {
+    if (!MPFlutter_Wechat_EditableInput.shouldUseWechatComponent()) {
       focusNode.addListener(() {
         if (focusNode.hasFocus) {
           widget.onFocus?.call();
@@ -66,6 +77,9 @@ class _MPFlutter_Wechat_EditableInputState
         }
       });
     } else {
+      controller.addListener(() {
+        setState(() {});
+      });
       focusNode.addListener(() {
         if (focusNode.hasFocus && !_focused) {
           setState(() {
@@ -84,7 +98,7 @@ class _MPFlutter_Wechat_EditableInputState
 
   @override
   Widget build(BuildContext context) {
-    if (runOnDevtools || kIsMPFlutterDevmode || !kIsMPFlutter) {
+    if (!MPFlutter_Wechat_EditableInput.shouldUseWechatComponent()) {
       return Align(
         alignment: Alignment.centerLeft,
         child: EditableText(
@@ -108,6 +122,7 @@ class _MPFlutter_Wechat_EditableInputState
       viewClazz: "MPFlutter_Wechat_EditableInput",
       viewProps: {
         "defaultText": controller.text,
+        "hintText": widget.hintText,
         "obscureText": widget.obscureText,
         "cursorColor": _colorToHex(widget.cursorColor, "#000000"),
         "fontSize": widget.style?.fontSize ?? 12,
@@ -154,6 +169,7 @@ class _MPFlutter_Wechat_EditableInputState
             });
             widget.onBlur?.call();
             widget.onEditingComplete?.call();
+            focusNode.unfocus();
             break;
           case "confirm":
             final value = detail["value"];
