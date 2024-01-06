@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:mpflutter_core/mpflutter_core.dart';
 import 'package:mpflutter_core/mpjs/mpjs.dart' as mpjs;
@@ -24,6 +26,7 @@ class MPFlutter_Wechat_EditableInput extends StatefulWidget {
   final bool? keyboardTypeIDCard;
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
+  final int? maxLines;
   final VoidCallback? onFocus;
   final VoidCallback? onBlur;
   final ValueChanged<String>? onChanged;
@@ -44,6 +47,7 @@ class MPFlutter_Wechat_EditableInput extends StatefulWidget {
     this.keyboardTypeIDCard,
     this.keyboardType,
     this.textInputAction,
+    this.maxLines,
     this.onFocus,
     this.onBlur,
     this.onChanged,
@@ -112,74 +116,91 @@ class _MPFlutter_Wechat_EditableInputState
           autofocus: widget.autofocus,
           keyboardType: widget.keyboardType,
           textInputAction: widget.textInputAction,
+          maxLines: widget.maxLines,
           onChanged: widget.onChanged,
           onEditingComplete: widget.onEditingComplete,
           onSubmitted: widget.onSubmitted,
         ),
       );
     }
-    return MPFlutterPlatformView(
-      viewClazz: "MPFlutter_Wechat_EditableInput",
-      viewProps: {
-        "defaultText": controller.text,
-        "hintText": widget.hintText,
-        "obscureText": widget.obscureText,
-        "cursorColor": _colorToHex(widget.cursorColor, "#000000"),
-        "fontSize": widget.style?.fontSize ?? 12,
-        "textColor": _colorToHex(widget.style?.color, "#000000"),
-        "textAlign": widget.textAlign.name,
-        "autofocus": _focused,
-        "keyboardType": (() {
-          if (widget.keyboardTypeIDCard == true) {
-            return "idcard";
-          }
-          final keyboardType = widget.keyboardType;
-          if (keyboardType == null) return "text";
-          if (keyboardType == TextInputType.number) {
-            if (keyboardType.decimal == true) {
-              return "digit";
+    final fontSize = widget.style?.fontSize ?? 12;
+    final maxLines = widget.maxLines ?? 1;
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        minHeight: (fontSize * 1.25) * min(10, maxLines),
+      ),
+      child: MPFlutterPlatformView(
+        viewClazz: "MPFlutter_Wechat_EditableInput",
+        viewProps: {
+          "textarea": maxLines > 1,
+          "defaultText": controller.text,
+          "hintText": widget.hintText,
+          "obscureText": widget.obscureText,
+          "cursorColor": _colorToHex(widget.cursorColor, "#000000"),
+          "fontSize": fontSize,
+          "textColor": _colorToHex(widget.style?.color, "#000000"),
+          "textAlign": widget.textAlign.name,
+          "autofocus": _focused,
+          "keyboardType": (() {
+            if (widget.keyboardTypeIDCard == true) {
+              return "idcard";
             }
-            return "number";
+            final keyboardType = widget.keyboardType;
+            if (keyboardType == null) return "text";
+            if (keyboardType == TextInputType.number) {
+              if (keyboardType.decimal == true) {
+                return "digit";
+              }
+              return "number";
+            }
+            if (keyboardType == TextInputType.phone) {
+              return "number";
+            }
+            if (keyboardType == TextInputType.name) {
+              return "nickname";
+            }
+            return "text";
+          })(),
+          "textInputAction": widget.textInputAction?.name ?? "done",
+        },
+        eventCallback: (originEvent, detail) {
+          final event = originEvent.toLowerCase();
+          switch (event) {
+            case "input":
+              final value = detail["value"];
+              this.controller.text = value;
+              widget.onChanged?.call(value);
+              break;
+            case "focus":
+              _focused = true;
+              widget.onFocus?.call();
+              if (widget.maxLines != null && widget.maxLines! > 1) {
+                mpjs.context["FlutterHostView"]['shared']['textareaHasFocus'] =
+                    true;
+              }
+              break;
+            case "blur":
+              setState(() {
+                _focused = false;
+              });
+              widget.onBlur?.call();
+              widget.onEditingComplete?.call();
+              focusNode.unfocus();
+              if (widget.maxLines != null && widget.maxLines! > 1) {
+                mpjs.context["FlutterHostView"]['shared']['textareaHasFocus'] =
+                    false;
+              }
+              break;
+            case "confirm":
+              final value = detail["value"];
+              this.controller.text = value;
+              widget.onSubmitted?.call(value);
+              break;
+            default:
+              break;
           }
-          if (keyboardType == TextInputType.phone) {
-            return "number";
-          }
-          if (keyboardType == TextInputType.name) {
-            return "nickname";
-          }
-          return "text";
-        })(),
-        "textInputAction": widget.textInputAction?.name ?? "done",
-      },
-      eventCallback: (originEvent, detail) {
-        final event = originEvent.toLowerCase();
-        switch (event) {
-          case "input":
-            final value = detail["value"];
-            this.controller.text = value;
-            widget.onChanged?.call(value);
-            break;
-          case "focus":
-            _focused = true;
-            widget.onFocus?.call();
-            break;
-          case "blur":
-            setState(() {
-              _focused = false;
-            });
-            widget.onBlur?.call();
-            widget.onEditingComplete?.call();
-            focusNode.unfocus();
-            break;
-          case "confirm":
-            final value = detail["value"];
-            this.controller.text = value;
-            widget.onSubmitted?.call(value);
-            break;
-          default:
-            break;
-        }
-      },
+        },
+      ),
     );
   }
 }
