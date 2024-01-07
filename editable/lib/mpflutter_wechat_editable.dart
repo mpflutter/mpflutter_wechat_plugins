@@ -7,8 +7,13 @@ export './mpflutter_text_field.dart';
 export './mpflutter_text_form_field.dart';
 
 class MPFlutter_Wechat_EditableInput extends StatefulWidget {
-  static final bool runOnDevtools =
-      mpjs.context["platformViewManager"]['devtools'];
+  static final bool runOnDevtools = (() {
+    try {
+      return mpjs.context["platformViewManager"]['devtools'];
+    } catch (e) {
+      return false;
+    }
+  })();
 
   static bool shouldUseWechatComponent() {
     return !(runOnDevtools || kIsMPFlutterDevmode || !kIsMPFlutter);
