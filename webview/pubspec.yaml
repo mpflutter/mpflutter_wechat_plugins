@@ -1,6 +1,6 @@
 name: mpflutter_wechat_webview
 description: "The web view widget in wechat miniprogram"
-version: 0.0.1
+version: 0.0.2
 
 environment:
   sdk: '>=3.1.0 <4.0.0'
@@ -9,5 +9,5 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  mpflutter_core: ">=2.0.0-alpha.7"
-  mpflutter_wechat_api: ">=2.0.0-alpha.4"
+  mpflutter_core: ">=2.0.0"
+  mpflutter_wechat_api: ">=2.0.0"

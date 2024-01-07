@@ -1,36 +1,5 @@
 <block wx:for="{{MPFlutter_Wechat_MapView_Block}}" wx:key="pvid">
-    <view style="{{item.wrapper}}">
-        <map id="{{item.pvid}}" style="{{item.style}}" 
-            longitude="{{item.props.longitude}}"
-            latitude="{{item.props.latitude}}"
-            scale="{{item.props.scale}}"
-            min-scale="{{item.props.minScale}}"
-            max-scale="{{item.props.maxScale}}"
-            markers="{{item.props.markers}}"
-            covers="{{item.props.covers}}"
-            polyline="{{item.props.polyline}}"
-            circles="{{item.props.circles}}"
-            controls="{{item.props.controls}}"
-            include-points="{{item.props.includePoints}}"
-            show-location="{{item.props.showLocation}}"
-            polygons="{{item.props.polygons}}"
-            subkey="{{item.props.subkey}}"
-            layer-style="{{item.props.layerStyle}}"
-            rotate="{{item.props.rotate}}"
-            skew="{{item.props.skew}}"
-            enable-3D="{{item.props.enable3D}}"
-            show-compass="{{item.props.showCompass}}"
-            show-scale="{{item.props.showScale}}"
-            enable-overlooking="{{item.props.enableOverlooking}}"
-            enable-auto-max-overlooking="{{item.props.enableAutoMaxOverlooking}}"
-            enable-zoom="{{item.props.enableZoom}}"
-            enable-scroll="{{item.props.enableScroll}}"
-            enable-rotate="{{item.props.enableRotate}}"
-            enable-satellite="{{item.props.enableSatellite}}"
-            enable-traffic="{{item.props.enableTraffic}}"
-            enable-poi="{{item.props.enablePOI}}"
-            enable-building="{{item.props.enableBuilding}}"
-            setting="{{item.props.setting}}" 
-            bindcastinginterrupt="onPVCB" bindtap="onPVCB" bindmarkertap="onPVCB" bindlabeltap="onPVCB" bindcontroltap="onPVCB" bindcallouttap="onPVCB" bindupdated="onPVCB" bindregionchange="onPVCB" bindpoitap="onPVCB" bindpolylinetap="onPVCB" bindabilitysuccess="onPVCB" bindabilityfailed="onPVCB" bindauthsuccess="onPVCB" bindinterpolatepoint="onPVCB" binderror="onPVCB"></map>
+    <view wx:if="{{!item.removed}}" style="{{item.wrapper}}">
+        <map wx:if="{{!item.removed}}" id="{{item.pvid}}" style="{{item.style}}" longitude="{{item.props.longitude}}" latitude="{{item.props.latitude}}" scale="{{item.props.scale}}" min-scale="{{item.props.minScale}}" max-scale="{{item.props.maxScale}}" markers="{{item.props.markers}}" covers="{{item.props.covers}}" polyline="{{item.props.polyline}}" circles="{{item.props.circles}}" controls="{{item.props.controls}}" include-points="{{item.props.includePoints}}" show-location="{{item.props.showLocation}}" polygons="{{item.props.polygons}}" subkey="{{item.props.subkey}}" layer-style="{{item.props.layerStyle}}" rotate="{{item.props.rotate}}" skew="{{item.props.skew}}" enable-3D="{{item.props.enable3D}}" show-compass="{{item.props.showCompass}}" show-scale="{{item.props.showScale}}" enable-overlooking="{{item.props.enableOverlooking}}" enable-auto-max-overlooking="{{item.props.enableAutoMaxOverlooking}}" enable-zoom="{{item.props.enableZoom}}" enable-scroll="{{item.props.enableScroll}}" enable-rotate="{{item.props.enableRotate}}" enable-satellite="{{item.props.enableSatellite}}" enable-traffic="{{item.props.enableTraffic}}" enable-poi="{{item.props.enablePOI}}" enable-building="{{item.props.enableBuilding}}" setting="{{item.props.setting}}" bindcastinginterrupt="onPVCB" bindtap="onPVCB" bindmarkertap="onPVCB" bindlabeltap="onPVCB" bindcontroltap="onPVCB" bindcallouttap="onPVCB" bindupdated="onPVCB" bindregionchange="onPVCB" bindpoitap="onPVCB" bindpolylinetap="onPVCB" bindabilitysuccess="onPVCB" bindabilityfailed="onPVCB" bindauthsuccess="onPVCB" bindinterpolatepoint="onPVCB" binderror="onPVCB"></map>
     </view>
 </block>
