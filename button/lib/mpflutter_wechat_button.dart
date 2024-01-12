@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mpflutter_core/mpflutter_core.dart';
-import 'package:mpflutter_wechat_api/mpflutter_wechat_api.dart';
 import 'package:mpflutter_core/mpjs/mpjs.dart' as mpjs;
 
 class MPFlutter_Wechat_Button extends StatelessWidget {
@@ -25,6 +24,7 @@ class MPFlutter_Wechat_Button extends StatelessWidget {
   final bool showMessageCard;
   final bool phoneNumberNoQuotaToast;
 
+  final Function(mpjs.JSObject)? onTap;
   final Function(mpjs.JSObject)? onGetUserInfo;
   final Function(mpjs.JSObject)? onContact;
   final Function(mpjs.JSObject)? onGetPhoneNumber;
@@ -56,6 +56,7 @@ class MPFlutter_Wechat_Button extends StatelessWidget {
     this.appParameter = '',
     this.showMessageCard = false,
     this.phoneNumberNoQuotaToast = true,
+    this.onTap,
     this.onGetUserInfo,
     this.onContact,
     this.onGetPhoneNumber,
@@ -100,6 +101,9 @@ class MPFlutter_Wechat_Button extends StatelessWidget {
             eventCallback: (originEvent, detail) {
               final event = originEvent.toLowerCase();
               switch (event) {
+                case "tap":
+                  onTap?.call(detail);
+                  break;
                 case "getuserinfo":
                   onGetUserInfo?.call(detail);
                   break;
