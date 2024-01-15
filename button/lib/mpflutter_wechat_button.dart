@@ -70,6 +70,7 @@ class MPFlutter_Wechat_Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (kIsMPFlutterDevmode) return child;
     return Stack(
       children: [
         child,
