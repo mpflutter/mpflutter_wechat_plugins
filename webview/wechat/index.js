@@ -8,7 +8,7 @@ Page({
   onLoad: function (query) {
     this.setData({
       pvid: query.pvid,
-      src: query.src,
+      src: decodeURIComponent(query.src),
     });
   },
   onwebviewmessage: function (detail) {

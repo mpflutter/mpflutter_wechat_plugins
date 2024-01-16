@@ -5,7 +5,7 @@ export class MPFlutter_Wechat_WebView {
     const pvid = Math.random().toString();
     this.callbacks[pvid] = { onMessage, onLoad, onError };
     wx.navigateTo({
-      url: `/mpflutter_wechat_webview/pages/index?pvid=${pvid}&src=${encodeURI(
+      url: `/mpflutter_wechat_webview/pages/index?pvid=${pvid}&src=${encodeURIComponent(
         src
       )}`,
     });
