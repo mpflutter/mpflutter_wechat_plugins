@@ -19,6 +19,12 @@ class MPFlutter_Wechat_MapViewController
     _createMapContext();
     return _mapContext;
   }
+
+  @override
+  dispose() {
+    _mapContext = null;
+    return super.dispose();
+  }
 }
 
 class MPFlutter_Wechat_MapView extends StatelessWidget {

@@ -19,6 +19,12 @@ class MPFlutter_Wechat_VideoViewController
     _createVideoContext();
     return _videoContext;
   }
+
+  @override
+  dispose() {
+    _videoContext = null;
+    return super.dispose();
+  }
 }
 
 class MPFlutter_Wechat_VideoView extends StatelessWidget {
