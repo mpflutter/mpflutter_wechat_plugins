@@ -1543,6 +1543,7 @@ class _MPFlutterTextFieldState extends State<MPFlutterTextField>
           // toolbarOptions: widget.toolbarOptions,
           // showCursor: widget.showCursor,
           // showSelectionHandles: _showSelectionHandles,
+          hintText: widget.decoration?.hintText,
           controller: controller,
           focusNode: _effectiveFocusNode,
           // undoController: widget.undoController,

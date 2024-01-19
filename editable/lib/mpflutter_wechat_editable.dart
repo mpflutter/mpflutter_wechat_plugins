@@ -16,7 +16,14 @@ class MPFlutter_Wechat_EditableInput extends StatefulWidget {
   })();
 
   static bool shouldUseWechatComponent() {
-    return !(runOnDevtools || kIsMPFlutterDevmode || !kIsMPFlutter);
+    if (!kIsMPFlutter) return false;
+    if (runOnDevtools) {
+      return false;
+    } else if (kIsMPFlutterDevmode) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   final TextEditingController? controller;
@@ -134,77 +141,80 @@ class _MPFlutter_Wechat_EditableInputState
       constraints: BoxConstraints(
         minHeight: (fontSize * 1.25) * min(10, maxLines),
       ),
-      child: MPFlutterPlatformView(
-        viewClazz: "MPFlutter_Wechat_EditableInput",
-        viewProps: {
-          "textarea": maxLines > 1,
-          "defaultText": controller.text,
-          "hintText": widget.hintText,
-          "obscureText": widget.obscureText,
-          "cursorColor": _colorToHex(widget.cursorColor, "#000000"),
-          "fontSize": fontSize,
-          "textColor": _colorToHex(widget.style?.color, "#000000"),
-          "textAlign": widget.textAlign.name,
-          "autofocus": _focused,
-          "keyboardType": (() {
-            if (widget.keyboardTypeIDCard == true) {
-              return "idcard";
-            }
-            final keyboardType = widget.keyboardType;
-            if (keyboardType == null) return "text";
-            if (keyboardType == TextInputType.number) {
-              if (keyboardType.decimal == true) {
-                return "digit";
+      child: Opacity(
+        opacity: controller.text.isEmpty && !focusNode.hasFocus ? 0.0 : 1.0,
+        child: MPFlutterPlatformView(
+          viewClazz: "MPFlutter_Wechat_EditableInput",
+          viewProps: {
+            "textarea": maxLines > 1,
+            "defaultText": controller.text,
+            "hintText": widget.hintText,
+            "obscureText": widget.obscureText,
+            "cursorColor": _colorToHex(widget.cursorColor, "#000000"),
+            "fontSize": fontSize,
+            "textColor": _colorToHex(widget.style?.color, "#000000"),
+            "textAlign": widget.textAlign.name,
+            "autofocus": _focused,
+            "keyboardType": (() {
+              if (widget.keyboardTypeIDCard == true) {
+                return "idcard";
               }
-              return "number";
-            }
-            if (keyboardType == TextInputType.phone) {
-              return "number";
-            }
-            if (keyboardType == TextInputType.name) {
-              return "nickname";
-            }
-            return "text";
-          })(),
-          "textInputAction": widget.textInputAction?.name ?? "done",
-        },
-        eventCallback: (originEvent, detail) {
-          final event = originEvent.toLowerCase();
-          switch (event) {
-            case "input":
-              final value = detail["value"];
-              this.controller.text = value;
-              widget.onChanged?.call(value);
-              break;
-            case "focus":
-              _focused = true;
-              widget.onFocus?.call();
-              if (widget.maxLines != null && widget.maxLines! > 1) {
-                mpjs.context["FlutterHostView"]['shared']['textareaHasFocus'] =
-                    true;
+              final keyboardType = widget.keyboardType;
+              if (keyboardType == null) return "text";
+              if (keyboardType == TextInputType.number) {
+                if (keyboardType.decimal == true) {
+                  return "digit";
+                }
+                return "number";
               }
-              break;
-            case "blur":
-              setState(() {
-                _focused = false;
-              });
-              widget.onBlur?.call();
-              widget.onEditingComplete?.call();
-              focusNode.unfocus();
-              if (widget.maxLines != null && widget.maxLines! > 1) {
-                mpjs.context["FlutterHostView"]['shared']['textareaHasFocus'] =
-                    false;
+              if (keyboardType == TextInputType.phone) {
+                return "number";
               }
-              break;
-            case "confirm":
-              final value = detail["value"];
-              this.controller.text = value;
-              widget.onSubmitted?.call(value);
-              break;
-            default:
-              break;
-          }
-        },
+              if (keyboardType == TextInputType.name) {
+                return "nickname";
+              }
+              return "text";
+            })(),
+            "textInputAction": widget.textInputAction?.name ?? "done",
+          },
+          eventCallback: (originEvent, detail) {
+            final event = originEvent.toLowerCase();
+            switch (event) {
+              case "input":
+                final value = detail["value"];
+                this.controller.text = value;
+                widget.onChanged?.call(value);
+                break;
+              case "focus":
+                _focused = true;
+                widget.onFocus?.call();
+                if (widget.maxLines != null && widget.maxLines! > 1) {
+                  mpjs.context["FlutterHostView"]['shared']
+                      ['textareaHasFocus'] = true;
+                }
+                break;
+              case "blur":
+                setState(() {
+                  _focused = false;
+                });
+                widget.onBlur?.call();
+                widget.onEditingComplete?.call();
+                focusNode.unfocus();
+                if (widget.maxLines != null && widget.maxLines! > 1) {
+                  mpjs.context["FlutterHostView"]['shared']
+                      ['textareaHasFocus'] = false;
+                }
+                break;
+              case "confirm":
+                final value = detail["value"];
+                this.controller.text = value;
+                widget.onSubmitted?.call(value);
+                break;
+              default:
+                break;
+            }
+          },
+        ),
       ),
     );
   }
