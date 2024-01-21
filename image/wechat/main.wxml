@@ -1,0 +1,3 @@
+<block wx:for="{{MPFlutter_Wechat_Image_Block}}" wx:key="pvid">
+    <image wx:if="{{!item.removed}}" id="{{item.pvid}}" style="{{item.style}};" src="{{item.props.src}}" mode="{{item.props.mode}}" show-menu-by-longpress="{{item.props.showMenuByLongpress}}" webp="{{item.props.webp}}" lazy-load="{{item.props.lazyLoad}}" binderror="onPVCB" bindload="onPVCB"></image>
+</block>
