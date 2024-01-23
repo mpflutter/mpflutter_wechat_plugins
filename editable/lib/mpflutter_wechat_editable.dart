@@ -27,6 +27,7 @@ class MPFlutter_Wechat_EditableInput extends StatefulWidget {
   }
 
   final TextEditingController? controller;
+  final bool forceShowHintText;
   final String? hintText;
   final FocusNode? focusNode;
   final TextStyle? style;
@@ -48,6 +49,7 @@ class MPFlutter_Wechat_EditableInput extends StatefulWidget {
   MPFlutter_Wechat_EditableInput({
     Key? key,
     this.controller,
+    this.forceShowHintText = false,
     this.hintText,
     this.focusNode,
     this.style,
@@ -142,7 +144,9 @@ class _MPFlutter_Wechat_EditableInputState
         minHeight: (fontSize * 1.25) * min(10, maxLines),
       ),
       child: Opacity(
-        opacity: controller.text.isEmpty && !focusNode.hasFocus ? 0.0 : 1.0,
+        opacity: widget.forceShowHintText
+            ? 1.0
+            : (controller.text.isEmpty && !focusNode.hasFocus ? 0.0 : 1.0),
         child: MPFlutterPlatformView(
           viewClazz: "MPFlutter_Wechat_EditableInput",
           viewProps: {
