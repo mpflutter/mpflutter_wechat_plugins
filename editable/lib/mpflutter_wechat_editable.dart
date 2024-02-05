@@ -159,7 +159,22 @@ class _MPFlutter_Wechat_EditableInputState
           "cursorColor": _colorToHex(widget.cursorColor, "#000000"),
           "fontSize": fontSize,
           "textColor": _colorToHex(widget.style?.color, "#000000"),
-          "textAlign": widget.textAlign.name,
+          "textAlign": (() {
+            final name = widget.textAlign.name;
+            final textDirection = Directionality.of(context);
+            if (name == "end") {
+              if (textDirection == TextDirection.ltr)
+                return "right";
+              else
+                return "left";
+            } else if (name == "start") {
+              if (textDirection == TextDirection.ltr)
+                return "left";
+              else
+                return "right";
+            }
+            return name;
+          })(),
           "autofocus": _focused,
           "keyboardType": (() {
             if (widget.keyboardTypeIDCard == true) {
