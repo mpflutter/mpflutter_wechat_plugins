@@ -1563,6 +1563,7 @@ class _MPFlutterTextFieldState extends State<MPFlutterTextField>
           // smartQuotesType: widget.smartQuotesType,
           // enableSuggestions: widget.enableSuggestions,
           maxLines: widget.maxLines,
+          maxLength: widget.maxLength,
           // minLines: widget.minLines,
           // expands: widget.expands,
           // Only show the selection highlight when the text field is focused.

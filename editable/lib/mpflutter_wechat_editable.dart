@@ -40,6 +40,7 @@ class MPFlutter_Wechat_EditableInput extends StatefulWidget {
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
   final int? maxLines;
+  final int? maxLength;
   final VoidCallback? onFocus;
   final VoidCallback? onBlur;
   final ValueChanged<String>? onChanged;
@@ -62,6 +63,7 @@ class MPFlutter_Wechat_EditableInput extends StatefulWidget {
     this.keyboardType,
     this.textInputAction,
     this.maxLines,
+    this.maxLength,
     this.onFocus,
     this.onBlur,
     this.onChanged,
@@ -151,6 +153,7 @@ class _MPFlutter_Wechat_EditableInputState
         viewClazz: "MPFlutter_Wechat_EditableInput",
         viewProps: {
           "textarea": maxLines > 1,
+          "maxLength": widget.maxLength ?? -1,
           "defaultText": controller.text,
           "hintText": widget.forceShowHintText
               ? widget.hintText
