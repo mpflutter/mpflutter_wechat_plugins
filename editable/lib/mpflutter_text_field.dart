@@ -1578,7 +1578,7 @@ class _MPFlutterTextFieldState extends State<MPFlutterTextField>
           // onAppPrivateCommand: widget.onAppPrivateCommand,
           // onSelectionHandleTapped: _handleSelectionHandleTapped,
           // onTapOutside: widget.onTapOutside,
-          // inputFormatters: formatters,
+          inputFormatters: formatters,
           // rendererIgnoresPointer: true,
           // mouseCursor: MouseCursor.defer, // TextField will handle the cursor
           // cursorWidth: widget.cursorWidth,

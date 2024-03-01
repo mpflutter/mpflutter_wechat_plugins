@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mpflutter_core/mpflutter_core.dart';
 import 'package:mpflutter_core/mpjs/mpjs.dart' as mpjs;
 export './mpflutter_text_field.dart';
@@ -42,6 +43,7 @@ class MPFlutter_Wechat_EditableInput extends StatefulWidget {
   final int? maxLines;
   final int? maxLength;
   final bool disabled;
+  final List<TextInputFormatter> inputFormatters;
   final VoidCallback? onFocus;
   final VoidCallback? onBlur;
   final ValueChanged<String>? onChanged;
@@ -66,6 +68,7 @@ class MPFlutter_Wechat_EditableInput extends StatefulWidget {
     this.maxLines,
     this.maxLength,
     this.disabled = false,
+    this.inputFormatters = const [],
     this.onFocus,
     this.onBlur,
     this.onChanged,
@@ -142,6 +145,7 @@ class _MPFlutter_Wechat_EditableInputState
           onChanged: widget.onChanged,
           onEditingComplete: widget.onEditingComplete,
           onSubmitted: widget.onSubmitted,
+          inputFormatters: widget.inputFormatters,
         ),
       );
     }
