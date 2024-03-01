@@ -41,6 +41,7 @@ class MPFlutter_Wechat_EditableInput extends StatefulWidget {
   final TextInputAction? textInputAction;
   final int? maxLines;
   final int? maxLength;
+  final bool disabled;
   final VoidCallback? onFocus;
   final VoidCallback? onBlur;
   final ValueChanged<String>? onChanged;
@@ -64,6 +65,7 @@ class MPFlutter_Wechat_EditableInput extends StatefulWidget {
     this.textInputAction,
     this.maxLines,
     this.maxLength,
+    this.disabled = false,
     this.onFocus,
     this.onBlur,
     this.onChanged,
@@ -200,6 +202,7 @@ class _MPFlutter_Wechat_EditableInputState
             return "text";
           })(),
           "textInputAction": widget.textInputAction?.name ?? "done",
+          "disabled": widget.disabled,
         },
         eventCallback: (originEvent, detail) {
           final event = originEvent.toLowerCase();

@@ -1556,6 +1556,7 @@ class _MPFlutterTextFieldState extends State<MPFlutterTextField>
           textAlign: widget.textAlign,
           // textDirection: widget.textDirection,
           autofocus: widget.autofocus,
+          disabled: !_isEnabled,
           // obscuringCharacter: widget.obscuringCharacter,
           obscureText: widget.obscureText,
           // autocorrect: widget.autocorrect,
