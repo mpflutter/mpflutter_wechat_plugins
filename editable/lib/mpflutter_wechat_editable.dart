@@ -213,9 +213,16 @@ class _MPFlutter_Wechat_EditableInputState
           switch (event) {
             case "input":
               final value = detail["value"];
-              this.controller.text = value;
-              widget.onChanged?.call(value);
-              break;
+              final oldValue = TextEditingValue(text: this.controller.text);
+              var newValue = TextEditingValue(text: value);
+              widget.inputFormatters.forEach((element) {
+                newValue = element.formatEditUpdate(oldValue, newValue);
+              });
+              if (newValue.text != oldValue.text) {
+                this.controller.text = newValue.text;
+                widget.onChanged?.call(newValue.text);
+              }
+              return newValue.text;
             case "focus":
               _focused = true;
               widget.onFocus?.call();
@@ -238,8 +245,15 @@ class _MPFlutter_Wechat_EditableInputState
               break;
             case "confirm":
               final value = detail["value"];
-              this.controller.text = value;
-              widget.onSubmitted?.call(value);
+              final oldValue = TextEditingValue(text: this.controller.text);
+              var newValue = TextEditingValue(text: value);
+              widget.inputFormatters.forEach((element) {
+                newValue = element.formatEditUpdate(oldValue, newValue);
+              });
+              if (newValue.text != oldValue.text) {
+                this.controller.text = newValue.text;
+              }
+              widget.onSubmitted?.call(newValue.text);
               break;
             default:
               break;
