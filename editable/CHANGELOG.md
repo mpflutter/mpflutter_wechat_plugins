@@ -1,3 +1,8 @@
+## 0.0.5
+
+fix:
+- inputFormatters and enable props
+
 ## 0.0.4
 
 * fix: hintText issue
