@@ -1,3 +1,8 @@
+## 0.0.6
+
+fix:
+- keyboard height issue
+
 ## 0.0.5
 
 fix:
