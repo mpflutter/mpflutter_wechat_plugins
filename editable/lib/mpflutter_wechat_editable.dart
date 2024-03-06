@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mpflutter_core/mpflutter_core.dart';
+import 'package:mpflutter_wechat_api/mpflutter_wechat_api.dart' as wechat_api;
 import 'package:mpflutter_core/mpjs/mpjs.dart' as mpjs;
 export './mpflutter_text_field.dart';
 export './mpflutter_text_form_field.dart';
@@ -16,6 +17,14 @@ class MPFlutter_Wechat_EditableInput extends StatefulWidget {
     }
   })();
 
+  static final bool runOnAndroid = (() {
+    try {
+      return wechat_api.wx.getSystemInfoSync().platform == "android";
+    } catch (e) {
+      return false;
+    }
+  })();
+
   static bool shouldUseWechatComponent() {
     if (!kIsMPFlutter) return false;
     if (runOnDevtools) {
@@ -23,6 +32,9 @@ class MPFlutter_Wechat_EditableInput extends StatefulWidget {
     } else if (kIsMPFlutterDevmode) {
       return false;
     } else {
+      if (runOnAndroid) {
+        return false;
+      }
       return true;
     }
   }
