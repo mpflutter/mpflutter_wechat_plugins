@@ -78,6 +78,7 @@ class MPFlutter_Wechat_Button extends StatelessWidget {
           child: MPFlutterPlatformView(
             viewClazz: "MPFlutter_Wechat_Button",
             transparent: true,
+            delayUpdate: true,
             viewProps: {
               "size": size,
               "type": type,
