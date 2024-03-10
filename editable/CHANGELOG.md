@@ -1,3 +1,8 @@
+## 0.1.0
+
+feat: 
+- force use flutter editable for android.
+
 ## 0.0.6
 
 fix:
