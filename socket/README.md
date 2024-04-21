@@ -1,3 +1,3 @@
-# mpflutter_wechat_webview
+# mpflutter_wechat_socket
 
-The web-view widget in wechat miniprogram
+The socket adapter in wechat miniprogram
