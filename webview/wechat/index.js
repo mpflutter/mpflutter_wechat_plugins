@@ -14,7 +14,14 @@ Page({
   onwebviewmessage: function (detail) {
     const cbs = MPFlutter_Wechat_WebView.callbacks[this.data.pvid];
     if (cbs && cbs.onMessage) {
-      cbs.onMessage(detail);
+      const data = detail.detail.data;
+      if (data instanceof Array) {
+        data.forEach((item) => {
+          cbs.onMessage(item);
+        });
+      } else {
+        cbs.onMessage(data);
+      }
     }
   },
   onwebviewload: function (detail) {
