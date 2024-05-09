@@ -1,9 +1,10 @@
 import 'package:mpflutter_core/mpjs/mpjs.dart' as mpjs;
 
 class MPFlutter_Wechat_WebView {
+  // 注意：onMessage 中的值可能的类型是 String / num / bool / mpjs.JSObject<dynamic, dynamic> / mpjs.JSArray<dynamic, dynamic>，这取决于你在 WebView 中传入的值类型。
   static String open(
     String src, {
-    Function(mpjs.JSObject)? onMessage,
+    Function(dynamic)? onMessage,
     Function(mpjs.JSObject)? onLoad,
     Function(mpjs.JSObject)? onError,
   }) {
