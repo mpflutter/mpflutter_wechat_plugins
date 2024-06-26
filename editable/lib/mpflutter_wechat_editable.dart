@@ -271,6 +271,27 @@ class _MPFlutter_Wechat_EditableInputState
               break;
           }
         },
+        placeholder: IgnorePointer(
+          ignoring: true,
+          child: Transform.translate(
+            offset: Offset(
+              (widget.maxLines ?? 1) > 1 ? 4 : 0,
+              (widget.maxLines ?? 1) > 1 ? 4 : -1,
+            ),
+            child: EditableText(
+              controller: controller,
+              focusNode: FocusNode(),
+              style: widget.style ?? TextStyle(),
+              cursorColor: Colors.transparent,
+              backgroundCursorColor:
+                  widget.backgroundCursorColor ?? Colors.black,
+              obscureText: widget.obscureText,
+              textAlign: widget.textAlign,
+              autofocus: false,
+              maxLines: widget.maxLines,
+            ),
+          ),
+        ),
       ),
     );
   }
