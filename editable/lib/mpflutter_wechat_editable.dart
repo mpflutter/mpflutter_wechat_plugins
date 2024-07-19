@@ -143,6 +143,7 @@ class _MPFlutter_Wechat_EditableInputState
       return Align(
         alignment: Alignment.centerLeft,
         child: EditableText(
+          key: widget.key,
           controller: controller,
           focusNode: focusNode,
           style: widget.style ?? TextStyle(),
