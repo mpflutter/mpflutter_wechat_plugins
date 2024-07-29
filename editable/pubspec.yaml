@@ -1,6 +1,6 @@
 name: mpflutter_wechat_editable
 description: "The editable widget in wechat miniprogram"
-version: 0.1.0
+version: 0.1.1
 
 environment:
   sdk: '>=3.1.0 <4.0.0'
