@@ -1,0 +1,6 @@
+<block wx:for="{{MPFlutter_Wechat_AdCustom_Block}}" wx:key="pvid">
+    <ad-custom wx:if="{{!item.removed}}" id="{{item.pvid}}" style="{{item.style}};height: unset;" unit-id="{{item.props.unitId}}" ad-intervals="{{item.props.adIntervals}}" bindload="onPVCB" binderror="onPVCB" bindclose="onPVCB"></ad-custom>
+</block>
+<block wx:for="{{MPFlutter_Wechat_Ad_Block}}" wx:key="pvid">
+    <ad wx:if="{{!item.removed}}" id="{{item.pvid}}" style="{{item.style}};height: unset;" unit-id="{{item.props.unitId}}" ad-intervals="{{item.props.adIntervals}}" ad-type="{{item.props.adType}}" ad-theme="{{item.props.theme}}" bindload="onPVCB" binderror="onPVCB" bindclose="onPVCB"></ad>
+</block>
