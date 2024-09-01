@@ -279,17 +279,35 @@ class _MPFlutter_Wechat_EditableInputState
               (widget.maxLines ?? 1) > 1 ? 4 : 0,
               (widget.maxLines ?? 1) > 1 ? 4 : -1,
             ),
-            child: EditableText(
-              controller: controller,
-              focusNode: FocusNode(),
-              style: widget.style ?? TextStyle(),
-              cursorColor: Colors.transparent,
-              backgroundCursorColor:
-                  widget.backgroundCursorColor ?? Colors.black,
-              obscureText: widget.obscureText,
-              textAlign: widget.textAlign,
-              autofocus: false,
-              maxLines: widget.maxLines,
+            child: Stack(
+              children: [
+                EditableText(
+                  controller: controller,
+                  focusNode: FocusNode(),
+                  style: widget.style ?? TextStyle(),
+                  cursorColor: Colors.transparent,
+                  backgroundCursorColor:
+                      widget.backgroundCursorColor ?? Colors.black,
+                  obscureText: widget.obscureText,
+                  textAlign: widget.textAlign,
+                  autofocus: false,
+                  maxLines: widget.maxLines,
+                ),
+                Positioned.fill(
+                  child: Visibility(
+                    visible:
+                        widget.forceShowHintText && controller.text.isEmpty,
+                    child: Opacity(
+                      opacity: 0.6,
+                      child: Text(
+                        widget.hintText ?? "",
+                        style: widget.style ?? TextStyle(),
+                        textAlign: widget.textAlign,
+                      ),
+                    ),
+                  ),
+                )
+              ],
             ),
           ),
         ),
