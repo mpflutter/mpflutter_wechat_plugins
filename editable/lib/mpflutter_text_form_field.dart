@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'dart:async';
 import 'dart:ui' as ui show BoxHeightStyle, BoxWidthStyle;
 
 import 'package:flutter/gestures.dart';
@@ -349,6 +350,9 @@ class _TextFormFieldState extends FormFieldState<String> {
     } else {
       _textFormField.controller!.addListener(_handleControllerChanged);
     }
+    Timer.periodic(Duration(milliseconds: 30), (timer) {
+      setState(() {});
+    });
   }
 
   @override

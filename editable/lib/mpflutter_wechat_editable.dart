@@ -276,7 +276,7 @@ class _MPFlutter_Wechat_EditableInputState
           ignoring: true,
           child: Transform.translate(
             offset: Offset(
-              (widget.maxLines ?? 1) > 1 ? 4 : 0,
+              (widget.maxLines ?? 1) > 1 ? 4 : -1,
               (widget.maxLines ?? 1) > 1 ? 4 : -1,
             ),
             child: Stack(

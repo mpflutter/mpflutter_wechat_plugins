@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'dart:async';
 import 'dart:ui' as ui show BoxHeightStyle, BoxWidthStyle;
 
 import 'package:flutter/cupertino.dart';
@@ -1140,6 +1141,9 @@ class _MPFlutterTextFieldState extends State<MPFlutterTextField>
     }
     _effectiveFocusNode.canRequestFocus = widget.canRequestFocus && _isEnabled;
     _effectiveFocusNode.addListener(_handleFocusChanged);
+    Timer.periodic(Duration(milliseconds: 30), (timer) {
+      setState(() {});
+    });
   }
 
   bool get _canRequestFocus {
