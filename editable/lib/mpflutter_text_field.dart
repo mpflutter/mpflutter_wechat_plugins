@@ -1142,6 +1142,9 @@ class _MPFlutterTextFieldState extends State<MPFlutterTextField>
     _effectiveFocusNode.canRequestFocus = widget.canRequestFocus && _isEnabled;
     _effectiveFocusNode.addListener(_handleFocusChanged);
     Timer.periodic(Duration(milliseconds: 30), (timer) {
+      if (!mounted) {
+        return;
+      }
       setState(() {});
     });
   }

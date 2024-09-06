@@ -351,6 +351,9 @@ class _TextFormFieldState extends FormFieldState<String> {
       _textFormField.controller!.addListener(_handleControllerChanged);
     }
     Timer.periodic(Duration(milliseconds: 30), (timer) {
+      if (!mounted) {
+        return;
+      }
       setState(() {});
     });
   }
