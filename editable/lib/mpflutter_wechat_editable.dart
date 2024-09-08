@@ -32,9 +32,6 @@ class MPFlutter_Wechat_EditableInput extends StatefulWidget {
     } else if (kIsMPFlutterDevmode) {
       return false;
     } else {
-      if (runOnAndroid) {
-        return false;
-      }
       return true;
     }
   }

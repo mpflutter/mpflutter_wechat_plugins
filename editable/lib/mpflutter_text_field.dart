@@ -16,7 +16,6 @@ import 'package:flutter/src/material/color_scheme.dart';
 import 'package:flutter/src/material/colors.dart';
 import 'package:flutter/src/material/debug.dart';
 import 'package:flutter/src/material/desktop_text_selection.dart';
-import 'package:flutter/src/material/feedback.dart';
 import 'package:flutter/src/material/input_decorator.dart';
 import 'package:flutter/src/material/magnifier.dart';
 import 'package:flutter/src/material/material_localizations.dart';
@@ -91,18 +90,6 @@ class _TextFieldSelectionGestureDetectorBuilder
   @override
   void onSingleLongTapStart(LongPressStartDetails details) {
     super.onSingleLongTapStart(details);
-    if (delegate.selectionEnabled) {
-      switch (Theme.of(_state.context).platform) {
-        case TargetPlatform.iOS:
-        case TargetPlatform.macOS:
-          break;
-        case TargetPlatform.android:
-        case TargetPlatform.fuchsia:
-        case TargetPlatform.linux:
-        case TargetPlatform.windows:
-          Feedback.forLongPress(_state.context);
-      }
-    }
   }
 }
 
