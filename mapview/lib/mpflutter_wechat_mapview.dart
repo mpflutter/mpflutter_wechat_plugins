@@ -175,6 +175,10 @@ class MPFlutter_Wechat_MapView extends StatelessWidget {
           onUpdated?.call(detail);
         } else if (event == "regionchange") {
           onRegionChange?.call(detail);
+        } else if (event == "begin") {
+          onRegionChange?.call(detail);
+        } else if (event == "end") {
+          onRegionChange?.call(detail);
         } else if (event == "poitap") {
           onPoiTap?.call(detail);
         } else if (event == "polylinetap") {
