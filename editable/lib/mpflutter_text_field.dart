@@ -1532,7 +1532,7 @@ class _MPFlutterTextFieldState extends State<MPFlutterTextField>
       child: UnmanagedRestorationScope(
         bucket: bucket,
         child: MPFlutter_Wechat_EditableInput(
-          key: editableTextKey,
+          innerKey: editableTextKey,
           // readOnly: widget.readOnly || !_isEnabled,
           // toolbarOptions: widget.toolbarOptions,
           // showCursor: widget.showCursor,

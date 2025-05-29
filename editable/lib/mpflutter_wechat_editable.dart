@@ -36,6 +36,7 @@ class MPFlutter_Wechat_EditableInput extends StatefulWidget {
     }
   }
 
+  final Key? innerKey;
   final TextEditingController? controller;
   final bool forceShowHintText;
   final String? hintText;
@@ -61,6 +62,7 @@ class MPFlutter_Wechat_EditableInput extends StatefulWidget {
 
   MPFlutter_Wechat_EditableInput({
     Key? key,
+    this.innerKey,
     this.controller,
     this.forceShowHintText = false,
     this.hintText,
@@ -140,7 +142,7 @@ class _MPFlutter_Wechat_EditableInputState
       return Align(
         alignment: Alignment.centerLeft,
         child: EditableText(
-          key: widget.key,
+          key: widget.innerKey,
           controller: controller,
           focusNode: focusNode,
           style: widget.style ?? TextStyle(),
