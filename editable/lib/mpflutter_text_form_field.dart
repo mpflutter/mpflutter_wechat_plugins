@@ -173,6 +173,7 @@ class MPFlutterTextFormField extends FormField<String> {
     Clip clipBehavior = Clip.hardEdge,
     bool scribbleEnabled = true,
     bool canRequestFocus = true,
+    bool? showConfirmBar,
   })  : assert(initialValue == null || controller == null),
         assert(obscuringCharacter.length == 1),
         assert(maxLines == null || maxLines > 0),
@@ -277,6 +278,7 @@ class MPFlutterTextFormField extends FormField<String> {
                 clipBehavior: clipBehavior,
                 scribbleEnabled: scribbleEnabled,
                 canRequestFocus: canRequestFocus,
+                showConfirmBar: showConfirmBar,
               ),
             );
           },

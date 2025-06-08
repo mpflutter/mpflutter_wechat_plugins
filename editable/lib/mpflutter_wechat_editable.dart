@@ -50,6 +50,7 @@ class MPFlutter_Wechat_EditableInput extends StatefulWidget {
   final bool? keyboardTypeIDCard;
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
+  final int? minLines;
   final int? maxLines;
   final int? maxLength;
   final bool disabled;
@@ -59,6 +60,8 @@ class MPFlutter_Wechat_EditableInput extends StatefulWidget {
   final ValueChanged<String>? onChanged;
   final VoidCallback? onEditingComplete;
   final ValueChanged<String>? onSubmitted;
+  final bool? expands;
+  final bool? showConfirmBar;
 
   MPFlutter_Wechat_EditableInput({
     Key? key,
@@ -76,6 +79,7 @@ class MPFlutter_Wechat_EditableInput extends StatefulWidget {
     this.keyboardTypeIDCard,
     this.keyboardType,
     this.textInputAction,
+    this.minLines,
     this.maxLines,
     this.maxLength,
     this.disabled = false,
@@ -85,6 +89,8 @@ class MPFlutter_Wechat_EditableInput extends StatefulWidget {
     this.onChanged,
     this.onEditingComplete,
     this.onSubmitted,
+    this.expands,
+    this.showConfirmBar = true,
   }) : super(key: key);
 
   @override
@@ -97,6 +103,7 @@ class _MPFlutter_Wechat_EditableInputState
   late TextEditingController controller;
   late FocusNode focusNode;
   bool _focused = false;
+  int _currentLineCount = 1;
 
   @override
   void initState() {
@@ -158,6 +165,8 @@ class _MPFlutter_Wechat_EditableInputState
           onEditingComplete: widget.onEditingComplete,
           onSubmitted: widget.onSubmitted,
           inputFormatters: widget.inputFormatters,
+          minLines: widget.minLines,
+          expands: widget.expands ?? false,
         ),
       );
     }
@@ -165,7 +174,9 @@ class _MPFlutter_Wechat_EditableInputState
     final maxLines = widget.maxLines ?? 1;
     return ConstrainedBox(
       constraints: BoxConstraints(
-        minHeight: (fontSize * 1.25) * min(10, maxLines),
+        minHeight: widget.expands == true
+            ? (fontSize * 1.25) * min(_currentLineCount, maxLines)
+            : (fontSize * 1.25) * min(10, maxLines),
       ),
       child: MPFlutterPlatformView(
         viewClazz: "MPFlutter_Wechat_EditableInput",
@@ -219,6 +230,7 @@ class _MPFlutter_Wechat_EditableInputState
           })(),
           "textInputAction": widget.textInputAction?.name ?? "done",
           "disabled": widget.disabled,
+          "showConfirmBar": widget.showConfirmBar ?? true,
         },
         eventCallback: (originEvent, detail) {
           final event = originEvent.toLowerCase();
@@ -266,6 +278,14 @@ class _MPFlutter_Wechat_EditableInputState
                 this.controller.text = newValue.text;
               }
               widget.onSubmitted?.call(newValue.text);
+              break;
+            case "linechange":
+              if (widget.expands == true) {
+                final lineCount = detail["lineCount"] as int;
+                setState(() {
+                  _currentLineCount = lineCount;
+                });
+              }
               break;
             default:
               break;

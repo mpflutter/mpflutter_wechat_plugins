@@ -314,6 +314,7 @@ class MPFlutterTextField extends StatefulWidget {
     this.canRequestFocus = true,
     this.spellCheckConfiguration,
     this.magnifierConfiguration,
+    this.showConfirmBar,
   })  : assert(obscuringCharacter.length == 1),
         smartDashesType = smartDashesType ??
             (obscureText ? SmartDashesType.disabled : SmartDashesType.enabled),
@@ -789,6 +790,8 @@ class MPFlutterTextField extends StatefulWidget {
 
   /// {@macro flutter.widgets.undoHistory.controller}
   final UndoHistoryController? undoController;
+
+  final bool? showConfirmBar;
 
   static Widget _defaultContextMenuBuilder(
       BuildContext context, EditableTextState editableTextState) {
@@ -1559,8 +1562,8 @@ class _MPFlutterTextFieldState extends State<MPFlutterTextField>
           // enableSuggestions: widget.enableSuggestions,
           maxLines: widget.maxLines,
           maxLength: widget.maxLength,
-          // minLines: widget.minLines,
-          // expands: widget.expands,
+          minLines: widget.minLines,
+          expands: widget.expands,
           // Only show the selection highlight when the text field is focused.
           // selectionColor: focusNode.hasFocus ? selectionColor : null,
           // selectionControls:
@@ -1602,6 +1605,7 @@ class _MPFlutterTextFieldState extends State<MPFlutterTextField>
           // spellCheckConfiguration: spellCheckConfiguration,
           // magnifierConfiguration: widget.magnifierConfiguration ??
           //     TextMagnifier.adaptiveMagnifierConfiguration,
+          showConfirmBar: widget.showConfirmBar,
         ),
       ),
     );
@@ -1618,7 +1622,7 @@ class _MPFlutterTextFieldState extends State<MPFlutterTextField>
             isHovering: _isHovering,
             isFocused: focusNode.hasFocus,
             isEmpty: controller.value.text.isEmpty,
-            expands: widget.expands,
+            // expands: widget.expands,
             child: child,
           );
         },
